@@ -17,7 +17,7 @@ async postMessage(req, res) {
       userRole = 'clientid'
     } else {
       userRole = 'providerid'
-    }
+    } 
   const userData = await db.query(`SELECT * FROM usermodel WHERE id = ${userId}`)
   const user = userData.rows[0]
   const ifChatHasUser = await db.query(`SELECT * FROM chatmodel WHERE ${userRole} = ${userId}`)
