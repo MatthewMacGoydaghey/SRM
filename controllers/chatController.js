@@ -13,7 +13,7 @@ async postMessage(req, res) {
       return res.status(404).json('ChatId needed')
     }
     let userRole = req.user.role
-    if (userRole === "Client") {
+    if (userRole === "Client") { 
       userRole = 'clientid'
     } else {
       userRole = 'providerid'

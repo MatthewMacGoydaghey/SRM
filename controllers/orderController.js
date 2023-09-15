@@ -10,7 +10,7 @@ class OrderController {
     const clientId = req.user.id
     const userRole = req.user.role
     if (!(userRole === 'Client')) {
-    return res.sendStatus(403)
+    return res.sendStatus(403) 
     }
 
     const {providerId, proposalId, quantity, totalcost} = req.body
