@@ -1,0 +1,487 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 16.0
+-- Dumped by pg_dump version 16.0
+
+-- Started on 2023-11-03 17:32:26
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 223 (class 1259 OID 16511)
+-- Name: chatmodel; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.chatmodel (
+    id integer NOT NULL,
+    orderid integer NOT NULL,
+    clientid integer NOT NULL,
+    providerid integer NOT NULL
+);
+
+
+ALTER TABLE public.chatmodel OWNER TO postgres;
+
+--
+-- TOC entry 224 (class 1259 OID 16516)
+-- Name: chatmodel_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.chatmodel ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public.chatmodel_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- TOC entry 225 (class 1259 OID 16532)
+-- Name: messages; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.messages (
+    id integer NOT NULL,
+    chatid integer NOT NULL,
+    username character varying(255) NOT NULL,
+    postdate character varying(255) NOT NULL,
+    usermessage character varying(255) NOT NULL
+);
+
+
+ALTER TABLE public.messages OWNER TO postgres;
+
+--
+-- TOC entry 226 (class 1259 OID 16539)
+-- Name: messages_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.messages ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public.messages_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- TOC entry 221 (class 1259 OID 16483)
+-- Name: ordermodel; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.ordermodel (
+    id integer NOT NULL,
+    providerid integer NOT NULL,
+    proposalid integer NOT NULL,
+    clientid integer NOT NULL,
+    quantity integer NOT NULL,
+    totalcost integer NOT NULL,
+    status character varying(255) DEFAULT 'Sent'::character varying NOT NULL,
+    chatid integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE public.ordermodel OWNER TO postgres;
+
+--
+-- TOC entry 222 (class 1259 OID 16491)
+-- Name: ordermodel_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.ordermodel ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public.ordermodel_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- TOC entry 219 (class 1259 OID 16469)
+-- Name: proposalmodel; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.proposalmodel (
+    id integer NOT NULL,
+    providerid integer NOT NULL,
+    objectofproposal character varying(255) NOT NULL,
+    costofobject character varying(255),
+    description character varying(255),
+    status character varying(255) DEFAULT 'Active'::character varying NOT NULL
+);
+
+
+ALTER TABLE public.proposalmodel OWNER TO postgres;
+
+--
+-- TOC entry 220 (class 1259 OID 16482)
+-- Name: proposalmodel_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.proposalmodel ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public.proposalmodel_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- TOC entry 217 (class 1259 OID 16439)
+-- Name: refresh_token; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.refresh_token (
+    id integer NOT NULL,
+    userid integer NOT NULL,
+    token character varying(255) NOT NULL
+);
+
+
+ALTER TABLE public.refresh_token OWNER TO postgres;
+
+--
+-- TOC entry 218 (class 1259 OID 16448)
+-- Name: refresh_token_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.refresh_token ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public.refresh_token_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- TOC entry 215 (class 1259 OID 16417)
+-- Name: usermodel; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.usermodel (
+    id integer NOT NULL,
+    username character varying(255) NOT NULL,
+    email character varying(255) NOT NULL,
+    password character varying(255) NOT NULL,
+    role character varying(255) NOT NULL,
+    location character varying(255) NOT NULL,
+    orderscompleted character varying(255) DEFAULT 0 NOT NULL,
+    rating text[]
+);
+
+
+ALTER TABLE public.usermodel OWNER TO postgres;
+
+--
+-- TOC entry 216 (class 1259 OID 16428)
+-- Name: usermodel_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.usermodel ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.usermodel_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- TOC entry 4839 (class 0 OID 16511)
+-- Dependencies: 223
+-- Data for Name: chatmodel; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.chatmodel (id, orderid, clientid, providerid) FROM stdin;
+\.
+
+
+--
+-- TOC entry 4841 (class 0 OID 16532)
+-- Dependencies: 225
+-- Data for Name: messages; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.messages (id, chatid, username, postdate, usermessage) FROM stdin;
+\.
+
+
+--
+-- TOC entry 4837 (class 0 OID 16483)
+-- Dependencies: 221
+-- Data for Name: ordermodel; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.ordermodel (id, providerid, proposalid, clientid, quantity, totalcost, status, chatid) FROM stdin;
+\.
+
+
+--
+-- TOC entry 4835 (class 0 OID 16469)
+-- Dependencies: 219
+-- Data for Name: proposalmodel; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.proposalmodel (id, providerid, objectofproposal, costofobject, description, status) FROM stdin;
+\.
+
+
+--
+-- TOC entry 4833 (class 0 OID 16439)
+-- Dependencies: 217
+-- Data for Name: refresh_token; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.refresh_token (id, userid, token) FROM stdin;
+\.
+
+
+--
+-- TOC entry 4831 (class 0 OID 16417)
+-- Dependencies: 215
+-- Data for Name: usermodel; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.usermodel (id, username, email, password, role, location, orderscompleted, rating) FROM stdin;
+\.
+
+
+--
+-- TOC entry 4848 (class 0 OID 0)
+-- Dependencies: 224
+-- Name: chatmodel_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.chatmodel_id_seq', 6, true);
+
+
+--
+-- TOC entry 4849 (class 0 OID 0)
+-- Dependencies: 226
+-- Name: messages_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.messages_id_seq', 109, true);
+
+
+--
+-- TOC entry 4850 (class 0 OID 0)
+-- Dependencies: 222
+-- Name: ordermodel_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.ordermodel_id_seq', 15, true);
+
+
+--
+-- TOC entry 4851 (class 0 OID 0)
+-- Dependencies: 220
+-- Name: proposalmodel_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.proposalmodel_id_seq', 8, true);
+
+
+--
+-- TOC entry 4852 (class 0 OID 0)
+-- Dependencies: 218
+-- Name: refresh_token_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.refresh_token_id_seq', 15, true);
+
+
+--
+-- TOC entry 4853 (class 0 OID 0)
+-- Dependencies: 216
+-- Name: usermodel_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.usermodel_id_seq', 16, true);
+
+
+--
+-- TOC entry 4676 (class 2606 OID 16515)
+-- Name: chatmodel chatmodel_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.chatmodel
+    ADD CONSTRAINT chatmodel_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4678 (class 2606 OID 16538)
+-- Name: messages messages_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.messages
+    ADD CONSTRAINT messages_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4674 (class 2606 OID 16489)
+-- Name: ordermodel ordermodel_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.ordermodel
+    ADD CONSTRAINT ordermodel_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4672 (class 2606 OID 16475)
+-- Name: proposalmodel proposalmodel_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.proposalmodel
+    ADD CONSTRAINT proposalmodel_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4666 (class 2606 OID 16443)
+-- Name: refresh_token refresh_token_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.refresh_token
+    ADD CONSTRAINT refresh_token_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4668 (class 2606 OID 16447)
+-- Name: refresh_token refresh_token_token_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.refresh_token
+    ADD CONSTRAINT refresh_token_token_key UNIQUE (token);
+
+
+--
+-- TOC entry 4670 (class 2606 OID 16445)
+-- Name: refresh_token refresh_token_userid_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.refresh_token
+    ADD CONSTRAINT refresh_token_userid_key UNIQUE (userid);
+
+
+--
+-- TOC entry 4664 (class 2606 OID 16423)
+-- Name: usermodel usermodel_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.usermodel
+    ADD CONSTRAINT usermodel_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4684 (class 2606 OID 16522)
+-- Name: chatmodel chatmodel_clientid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.chatmodel
+    ADD CONSTRAINT chatmodel_clientid_fkey FOREIGN KEY (clientid) REFERENCES public.usermodel(id) ON UPDATE CASCADE ON DELETE CASCADE NOT VALID;
+
+
+--
+-- TOC entry 4685 (class 2606 OID 16517)
+-- Name: chatmodel chatmodel_orderid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.chatmodel
+    ADD CONSTRAINT chatmodel_orderid_fkey FOREIGN KEY (orderid) REFERENCES public.ordermodel(id) ON UPDATE CASCADE ON DELETE CASCADE NOT VALID;
+
+
+--
+-- TOC entry 4686 (class 2606 OID 16527)
+-- Name: chatmodel chatmodel_providerid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.chatmodel
+    ADD CONSTRAINT chatmodel_providerid_fkey FOREIGN KEY (providerid) REFERENCES public.usermodel(id) ON UPDATE CASCADE ON DELETE CASCADE NOT VALID;
+
+
+--
+-- TOC entry 4687 (class 2606 OID 16540)
+-- Name: messages messages_chatid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.messages
+    ADD CONSTRAINT messages_chatid_fkey FOREIGN KEY (chatid) REFERENCES public.chatmodel(id) ON UPDATE CASCADE ON DELETE CASCADE NOT VALID;
+
+
+--
+-- TOC entry 4681 (class 2606 OID 16505)
+-- Name: ordermodel ordermodel.clientid.fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.ordermodel
+    ADD CONSTRAINT "ordermodel.clientid.fkey" FOREIGN KEY (clientid) REFERENCES public.usermodel(id) ON UPDATE CASCADE ON DELETE CASCADE NOT VALID;
+
+
+--
+-- TOC entry 4682 (class 2606 OID 16499)
+-- Name: ordermodel ordermodel.proposalid.fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.ordermodel
+    ADD CONSTRAINT "ordermodel.proposalid.fkey" FOREIGN KEY (proposalid) REFERENCES public.proposalmodel(id) NOT VALID;
+
+
+--
+-- TOC entry 4683 (class 2606 OID 16550)
+-- Name: ordermodel ordermodel.providerid.fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.ordermodel
+    ADD CONSTRAINT "ordermodel.providerid.fkey" FOREIGN KEY (providerid) REFERENCES public.usermodel(id) ON UPDATE CASCADE ON DELETE CASCADE NOT VALID;
+
+
+--
+-- TOC entry 4680 (class 2606 OID 16545)
+-- Name: proposalmodel proposalmodel.providerid.fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.proposalmodel
+    ADD CONSTRAINT "proposalmodel.providerid.fkey" FOREIGN KEY (providerid) REFERENCES public.usermodel(id) ON UPDATE CASCADE ON DELETE CASCADE NOT VALID;
+
+
+--
+-- TOC entry 4679 (class 2606 OID 16449)
+-- Name: refresh_token userid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.refresh_token
+    ADD CONSTRAINT userid_fkey FOREIGN KEY (userid) REFERENCES public.usermodel(id) ON UPDATE CASCADE ON DELETE CASCADE NOT VALID;
+
+
+-- Completed on 2023-11-03 17:32:26
+
+--
+-- PostgreSQL database dump complete
+--
+

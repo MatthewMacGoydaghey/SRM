@@ -1,0 +1,101 @@
+body {
+  background-color: rgb(3, 3, 45);
+}
+
+
+.leftBorder {
+  height: 900px;
+  border-color: white;
+  border-style: solid;
+  border-width: 1px;
+  border-top: none;
+  position: fixed;
+  left: 400px;
+  top: 0
+}
+
+.rightBorder {
+  height: 900px;
+  border-color: white;
+  border-style: solid;
+  border-width: 1px;
+  border-top: none;
+  position: fixed;
+  left: 1150px;
+  top: 0
+}
+
+
+.chatDiv {
+  width: 700px;
+  margin-left: 420px;
+  margin-top: 20px;
+  margin-bottom: 35px;
+  display: flex;
+  flex-direction: column;
+}
+
+.chatInput {
+  width: 200px;
+  height: 20px;
+  position: fixed;
+}
+
+.tokenInput {
+  top: 50px;
+  width: 200px;
+  height: 20px;
+  position: fixed;
+}
+
+.startButton {
+  position: fixed;
+  height: 25px;
+  top: 90px;
+}
+
+
+.messageDiv {
+  color: white;
+  margin-top: 20px;
+  margin-left: 400px;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+}
+
+.postDiv {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  font-size: 16px;
+}
+
+.message {
+  margin: 0px;
+}
+
+.viewer {
+  margin-left: 10px;
+}
+
+
+.messageInputDiv {
+  position: fixed;
+  width: 750px;
+  height: 25px;
+  left: 405px;
+  top: 715px;
+}
+
+
+.messageInput {
+width: 680px;
+height: 20px;
+margin-left: 2px;
+}
+
+.sendMessageButton {
+  height: 25px;
+  width: 50px;
+}
