@@ -101,7 +101,55 @@ class OrderController {
   }
  }
 
+
+
+ async rateOrder(req, res) {
+  const user = req.user
+  const {orderId, rate} = req.body
+
+if (!orderId || !rate) {
+  return res.status(404).json('orderId and rate not found')
 }
+
+let rating = 1[rate]
+
+  let userId
+
+  if (user.role === 'Client') {
+    userId = 'clientid'
+  } else if (user.role === 'Provider') {
+    userId = 'providerid'
+  }
+
+
+  let orderData = await db.query(`SELECT * FROM ordermodel WHERE ${userId} = ${user.id}`)
+
+  if (orderData.rowCount === 0) {
+    return res.status(404).json('Order not found')
+  }
+
+let ratedUser
+
+if (userId === 'Client') {
+  ratedUser = orderData.rows[0].providerid
+} else {
+  ratedUser = orderData.rows[0].clientid
+}
+
+  if (orderId === orderData.rows[0].id) {
+    let ratedUserData = await db.query(`SELECT * FROM usermodel WHERE id = ${ratedUser}`)
+    let ratedUserId = ratedUserData.rows[0].id
+    let setRating = await db.query(`UPDATE usermodel SET rating = $1 WHERE id = $2`, [rating, ratedUserId])
+    return res.status(200).json(setRating)
+  } else {
+    return res.status(403).json('You can not set rating through this order')
+  }
+
+ }
+
+}
+
+
 
 
 module.exports = OrderController

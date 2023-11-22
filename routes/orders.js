@@ -12,5 +12,7 @@ router.get('/:id', Controller.getOrder)
 
 router.patch('/:id', Controller.updateOrder)
 
+router.patch('/', Controller.rateOrder)
+
 
 module.exports = router
